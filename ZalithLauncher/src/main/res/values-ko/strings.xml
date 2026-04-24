@@ -424,7 +424,7 @@
     <string name="account_add_new_server_button">인증 추가</string>
     <string name="account_add_new_account">계정 추가</string>
     <string name="account_label_username">사용자 이름</string>
-    <string name="account_label_server_url">Yggdrasil API 주소</string>
+    <string name="account_label_server_url">서버 주소 입력</string>
     <string name="account_label_email">이메일 또는 사용자 이름</string>
     <string name="account_label_password">비밀번호</string>
     <string name="account_change_skin">스킨 변경</string>
@@ -667,4 +667,5 @@
     <string name="versions_export_pack_pack_remote">%s에서 핵심 리소스를 다운로드합니다</string>
     <string name="versions_export_pack_also_pack_curseforge">­</string>
     <string name="versions_export_pack_select_files">파일 선택</string>
+    <string name="versions_export_pack_select_output">다른 이름으로 내보내기</string>
 </resources>
