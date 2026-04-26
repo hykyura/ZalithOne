@@ -1189,4 +1189,8 @@
     <string name="cape_name_minecon2012"></string>
     <string name="versions_export_task_error_message"></string>
     <string name="settings_renderer_surface_title"></string>
+    <string name="cape_name_minecon2011"></string>
+    <string name="account_label_server_url"></string>
+    <string name="control_editor_layers_attribute_hide_when_gamepad"></string>
+    <string name="control_editor_layers_attribute_hide_when_mouse"></string>
 </resources>
