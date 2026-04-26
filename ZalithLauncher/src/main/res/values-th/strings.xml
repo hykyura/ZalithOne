@@ -1203,4 +1203,5 @@
     <string name="settings_renderer_surface_title"></string>
     <string name="account_supporting_username_invalid_local_message_hint4"></string>
     <string name="versions_manage_install_new"></string>
+    <string name="versions_export_pack_min_memory"></string>
 </resources>
