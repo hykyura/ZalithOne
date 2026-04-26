@@ -1202,4 +1202,5 @@
     <string name="versions_export_tip_remote_1"></string>
     <string name="upgrade_version_size"></string>
     <string name="versions_export_tip_2"></string>
+    <string name="settings_renderer_vsync_in_zink_title"></string>
 </resources>
