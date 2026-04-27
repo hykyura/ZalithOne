@@ -88,9 +88,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.movtery.zalithlauncher.R
 import com.movtery.zalithlauncher.game.version.installed.Version
@@ -119,6 +119,8 @@ import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
 import com.movtery.zalithlauncher.utils.logging.Logger.lError
 import com.movtery.zalithlauncher.utils.string.getMessageOrToString
 import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -127,6 +129,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
+import javax.inject.Inject
 
 // 数据模型
 data class ScreenshotInfo(
@@ -143,9 +146,13 @@ sealed interface ExportOperation {
     data object Ask : ExportOperation
 }
 
-private class ScreenshotsManageViewModel(
-    val screenshotDir: File
+@HiltViewModel
+class ScreenshotsManageViewModel @Inject constructor(
+    @param:ApplicationContext private val context: Context // 注入全局 ApplicationContext
 ) : ViewModel() {
+
+    private var screenshotDir: File? = null
+
     var filter by mutableStateOf(ScreenshotFilter(""))
         private set
 
@@ -165,6 +172,14 @@ private class ScreenshotsManageViewModel(
     var deleteAllOperation by mutableStateOf<DeleteAllOperation>(DeleteAllOperation.None)
     var exportOperation by mutableStateOf<ExportOperation>(ExportOperation.None)
 
+    // 提供给 UI 层的初始化方法
+    fun initDirectory(dir: File) {
+        if (screenshotDir != dir) {
+            screenshotDir = dir
+            refresh()
+        }
+    }
+
     fun selectAllFiles() {
         filteredScreenshots?.forEach { shot ->
             if (!selectedShots.contains(shot)) selectedShots.add(shot)
@@ -177,9 +192,20 @@ private class ScreenshotsManageViewModel(
         }
     }
 
+    // 提取的业务逻辑：请求删除选中的图片
+    fun requestDeleteSelected() {
+        if (deleteAllOperation == DeleteAllOperation.None && selectedShots.isNotEmpty()) {
+            deleteAllOperation = DeleteAllOperation.Warning(
+                selectedShots.map { it.file }
+            )
+        }
+    }
+
     private var refreshJob: Job? = null
 
     fun refresh() {
+        val dir = screenshotDir ?: return
+
         refreshJob = viewModelScope.launch {
             listState = LoadingState.Loading
             selectedShots.clear()
@@ -187,8 +213,8 @@ private class ScreenshotsManageViewModel(
             withContext(Dispatchers.IO) {
                 val tempList = mutableListOf<ScreenshotInfo>()
                 try {
-                    if (screenshotDir.exists() && screenshotDir.isDirectory) {
-                        screenshotDir.listFiles { file ->
+                    if (dir.exists() && dir.isDirectory) {
+                        dir.listFiles { file ->
                             file.isFile && file.extension.lowercase() == "png"
                         }?.forEach { file ->
                             ensureActive()
@@ -209,12 +235,11 @@ private class ScreenshotsManageViewModel(
 
     private var exportsJob: Job? = null
 
+    // 移除 context 参数，直接使用注入的全局 context
     fun exports(
-        context: Context,
         onSuccess: suspend () -> Unit,
         onFailed: suspend (e: Exception) -> Unit
     ) {
-        //如果不选择任何截图，则视为导出全部截图
         val infos = selectedShots.takeIf { it.isNotEmpty() } ?: allScreenshots
         exportsJob = viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
@@ -369,16 +394,6 @@ private class ScreenshotsManageViewModel(
 }
 
 @Composable
-private fun rememberScreenshotsManageViewModel(
-    screenshotDir: File,
-    version: Version
-) = viewModel(
-    key = version.toString() + "_" + VersionFolders.SCREENSHOTS.folderName
-) {
-    ScreenshotsManageViewModel(screenshotDir)
-}
-
-@Composable
 fun ScreenshotsManagerScreen(
     mainScreenKey: TitledNavKey?,
     versionsScreenKey: TitledNavKey?,
@@ -401,7 +416,16 @@ fun ScreenshotsManagerScreen(
         ),
         Triple(NormalNavKey.Versions.ScreenshotsManager, versionsScreenKey, false)
     ) { isVisible ->
-        val viewModel = rememberScreenshotsManageViewModel(screenshotDir, version)
+        // 使用 hiltViewModel，依然通过 key 保证其针对不同版本的数据独立性
+        val viewModel: ScreenshotsManageViewModel = hiltViewModel(
+            key = version.toString() + "_" + VersionFolders.SCREENSHOTS.folderName
+        )
+
+        // 传递初始化目录
+        LaunchedEffect(screenshotDir) {
+            viewModel.initDirectory(screenshotDir)
+        }
+
         val context = LocalContext.current
 
         DeleteAllOperation(
@@ -418,8 +442,8 @@ fun ScreenshotsManagerScreen(
             updateOperation = { viewModel.exportOperation = it },
             selectedShots = viewModel.selectedShots,
             onExport = {
+                // 不再需要传递 context
                 viewModel.exports(
-                    context = context,
                     onSuccess = {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(context, successToast, Toast.LENGTH_SHORT).show()
@@ -462,14 +486,8 @@ fun ScreenshotsManagerScreen(
                                 onSortByChanged = { viewModel.updateSortBy(it) },
                                 isAscending = viewModel.isAscending,
                                 onToggleSortOrder = { viewModel.updateSortOrder() },
-                                onDeleteAll = {
-                                    val screenshots = viewModel.selectedShots
-                                    if (viewModel.deleteAllOperation == DeleteAllOperation.None && screenshots.isNotEmpty()) {
-                                        viewModel.deleteAllOperation = DeleteAllOperation.Warning(
-                                            screenshots.map { it.file }
-                                        )
-                                    }
-                                },
+                                // 使用 ViewModel 中提取好的业务逻辑
+                                onDeleteAll = { viewModel.requestDeleteSelected() },
                                 isFilesSelected = viewModel.selectedShots.isNotEmpty(),
                                 onSelectAll = { viewModel.selectAllFiles() },
                                 onClearFilesSelected = { viewModel.clearSelected() },
@@ -487,7 +505,6 @@ fun ScreenshotsManagerScreen(
                             )
                         }
 
-                        //导出图片悬浮按钮
                         if (viewModel.allScreenshots.isNotEmpty()) {
                             FloatingActionButton(
                                 onClick = {
