@@ -333,7 +333,7 @@ class MainActivity : BaseAppCompatActivity() {
                 var showLauncherInfo by rememberSaveable { mutableStateOf(true) }
                 if (showLauncherInfo) {
                     SimpleAlertDialog(
-                        title = "⚠️ Launcher Information ⚠️",
+                        title = stringResource(R.string.generic_unofficial_title),
                         text = stringResource(R.string.generic_unofficial_warning),
                         confirmText = stringResource(R.string.generic_close),
                         onDismiss = {
