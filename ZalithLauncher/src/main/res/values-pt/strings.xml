@@ -808,5 +808,7 @@
     <string name="control_editor_edit_text_italic">Habilitar Itálico</string>
     <string name="control_editor_edit_text_underline">Habilitar Sublinhado</string>
     <string name="settings_launcher_background_title">Fundo do Launcher</string>
+    <string name="generic_unofficial_title">⚠️ Informações de lançador ⚠️</string>
+    <string name="generic_unofficial_warning">Este aplicativo não é oficial e é uma versão derivada do repositório do ZalithLauncher. Ele permite que você jogue o Minecraft Java no Android sem precisar de uma conta da Microsoft. Você pode jogar normalmente com este aplicativo, mas, algum dia, compre o Minecraft original no site oficial para se livrar da pirataria :p</string>
     <string name="about_launcher_modder_hykyura_text">Lama ou %s</string>
 </resources>

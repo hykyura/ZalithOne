@@ -29,6 +29,9 @@ import net.hykyura.zalithone.path.GLOBAL_CLIENT
 import net.hykyura.zalithone.path.GLOBAL_JSON
 import net.hykyura.zalithone.path.URL_PROJECT_INFO
 import net.hykyura.zalithone.setting.AllSettings
+import androidx.compose.ui.res.stringResource
+import net.hykyura.zalithone.R
+import net.hykyura.zalithone.ui.components.SimpleListDialog
 import net.hykyura.zalithone.ui.upgrade.UpgradeDialog
 import net.hykyura.zalithone.ui.upgrade.UpgradeFilesDialog
 import net.hykyura.zalithone.upgrade.GithubContentApi
@@ -54,6 +57,8 @@ sealed interface LauncherUpgradeOperation {
     data class Upgrade(val data: RemoteData) : LauncherUpgradeOperation
     /** 选择要安装的安装包文件 */
     data class SelectApk(val data: RemoteData) : LauncherUpgradeOperation
+    /** 选择要使用的网盘下载链接 */
+    data class SelectCloudDrive(val cloudDrive: RemoteData.CloudDrive) : LauncherUpgradeOperation
 }
 
 /**
@@ -254,7 +259,10 @@ fun LauncherUpgradeOperation(
                 onIgnored = {
                     onIgnoredClick(operation.data.code)
                 },
-                onLinkClick = onLinkClick
+                onLinkClick = onLinkClick,
+                onCloudDriveClick = { cloudDrive ->
+                    onChanged(LauncherUpgradeOperation.SelectCloudDrive(cloudDrive))
+                }
             )
         }
         is LauncherUpgradeOperation.SelectApk -> {
@@ -265,6 +273,20 @@ fun LauncherUpgradeOperation(
                 },
                 onFileSelected = { file ->
                     onLinkClick(file.uri)
+                    onChanged(LauncherUpgradeOperation.None)
+                }
+            )
+        }
+        is LauncherUpgradeOperation.SelectCloudDrive -> {
+            SimpleListDialog(
+                title = stringResource(R.string.upgrade_cloud_drive),
+                items = operation.cloudDrive.links,
+                itemTextProvider = { it.name },
+                onItemSelected = { link ->
+                    onLinkClick(link.link)
+                    onChanged(LauncherUpgradeOperation.None)
+                },
+                onDismissRequest = {
                     onChanged(LauncherUpgradeOperation.None)
                 }
             )
