@@ -30,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.jakewharton.processphoenix.ProcessPhoenix
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/activities/ErrorActivity.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.context.COPY_LABEL_LINK
 import net.hykyura.zalithone.game.launch.LogName
@@ -47,6 +48,24 @@ import net.hykyura.zalithone.utils.getSerializableSafely
 import net.hykyura.zalithone.utils.network.openLink
 import net.hykyura.zalithone.utils.string.throwableToString
 import net.hykyura.zalithone.viewmodel.CrashLogsUploadViewModel
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.COPY_LABEL_LINK
+import com.movtery.zalithlauncher.path.PathManager
+import com.movtery.zalithlauncher.ui.base.BaseAppCompatActivity
+import com.movtery.zalithlauncher.ui.screens.main.ErrorScreen
+import com.movtery.zalithlauncher.ui.screens.main.crashlogs.ShareLinkOperation
+import com.movtery.zalithlauncher.ui.theme.ZalithLauncherTheme
+import com.movtery.zalithlauncher.ui.theme.backgroundColor
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
+import com.movtery.zalithlauncher.utils.copyText
+import com.movtery.zalithlauncher.utils.file.shareFile
+import com.movtery.zalithlauncher.utils.getParcelableSafely
+import com.movtery.zalithlauncher.utils.getSerializableSafely
+import com.movtery.zalithlauncher.utils.network.openLink
+import com.movtery.zalithlauncher.utils.string.throwableToString
+import com.movtery.zalithlauncher.viewmodel.CrashLogsUploadViewModel
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/activities/ErrorActivity.kt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.parcelize.Parcelize
 import java.io.File
@@ -58,18 +77,27 @@ private const val BUNDLE_CAN_RESTART = "BUNDLE_CAN_RESTART"
 private const val EXIT_JVM = "EXIT_JVM"
 private const val EXIT_LAUNCHER = "EXIT_LAUNCHER"
 
-fun showExitMessage(context: Context, code: Int, isSignal: Boolean) {
+fun showExitMessage(
+    context: Context,
+    code: Int,
+    isSignal: Boolean,
+    logPath: String
+) {
     val intent = Intent(context, ErrorActivity::class.java).apply {
         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         putExtra(BUNDLE_EXIT_TYPE, EXIT_JVM)
-        putExtra(BUNDLE_JVM_CRASH, JvmCrash(code, isSignal))
+        putExtra(BUNDLE_JVM_CRASH, JvmCrash(code, isSignal, logPath))
     }
     context.startActivity(intent)
 }
 
 @Parcelize
-private data class JvmCrash(val code: Int, val isSignal: Boolean): Parcelable
+private data class JvmCrash(
+    val code: Int,
+    val isSignal: Boolean,
+    val logPath: String
+): Parcelable
 
 @AndroidEntryPoint
 class ErrorActivity : BaseAppCompatActivity(refreshData = false) {
@@ -95,7 +123,11 @@ class ErrorActivity : BaseAppCompatActivity(refreshData = false) {
                 ErrorMessage(
                     message = message,
                     messageBody = messageBody,
-                    crashType = CrashType.GAME_CRASH
+                    crashType = CrashType.GAME_CRASH,
+                    logFile = File(jvmCrash.logPath).also { file ->
+                        //检查日志文件是否适合上传
+                        viewModel.check(file)
+                    }
                 )
             }
             else -> {
@@ -105,23 +137,13 @@ class ErrorActivity : BaseAppCompatActivity(refreshData = false) {
                 ErrorMessage(
                     message = message,
                     messageBody = messageBody,
-                    crashType = CrashType.LAUNCHER_CRASH
+                    crashType = CrashType.LAUNCHER_CRASH,
+                    logFile = PathManager.FILE_CRASH_REPORT
                 )
             }
         }
 
-        val logFile = when (exitType) {
-            EXIT_JVM -> {
-                File(PathManager.DIR_FILES_EXTERNAL, "${LogName.GAME.fileName}.log").also { file ->
-                    //检查日志文件是否适合上传
-                    viewModel.check(file)
-                }
-            }
-            else -> {
-                PathManager.FILE_CRASH_REPORT
-            }
-        }
-
+        val logFile = errorMessage.logFile
         val canRestart: Boolean = extras.getBoolean(BUNDLE_CAN_RESTART, true)
 
         setContent {
@@ -179,7 +201,8 @@ class ErrorActivity : BaseAppCompatActivity(refreshData = false) {
     private data class ErrorMessage(
         val message: String,
         val messageBody: String,
-        val crashType: CrashType
+        val crashType: CrashType,
+        val logFile: File
     )
 }
 

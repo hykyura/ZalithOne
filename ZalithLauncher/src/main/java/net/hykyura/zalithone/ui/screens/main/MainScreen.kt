@@ -72,6 +72,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/main/MainScreen.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.coroutine.Task
 import net.hykyura.zalithone.coroutine.TaskSystem
@@ -116,11 +117,57 @@ import net.hykyura.zalithone.viewmodel.LocalBackgroundViewModel
 import net.hykyura.zalithone.viewmodel.ModpackImportViewModel
 import net.hykyura.zalithone.viewmodel.ScreenBackStackViewModel
 import net.hykyura.zalithone.viewmodel.sendKeepScreen
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.coroutine.Task
+import com.movtery.zalithlauncher.coroutine.TaskSystem
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.info.InfoDistributor
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.ui.base.applyFullscreen
+import com.movtery.zalithlauncher.ui.components.BackgroundCard
+import com.movtery.zalithlauncher.ui.components.CardTitleLayout
+import com.movtery.zalithlauncher.ui.components.TextRailItem
+import com.movtery.zalithlauncher.ui.screens.BackStackNavKey
+import com.movtery.zalithlauncher.ui.screens.NestedNavKey
+import com.movtery.zalithlauncher.ui.screens.NormalNavKey
+import com.movtery.zalithlauncher.ui.screens.TitledNavKey
+import com.movtery.zalithlauncher.ui.screens.content.AccountManageScreen
+import com.movtery.zalithlauncher.ui.screens.content.DownloadScreen
+import com.movtery.zalithlauncher.ui.screens.content.FileSelectorScreen
+import com.movtery.zalithlauncher.ui.screens.content.HomePageEditorScreen
+import com.movtery.zalithlauncher.ui.screens.content.LauncherScreen
+import com.movtery.zalithlauncher.ui.screens.content.LicenseScreen
+import com.movtery.zalithlauncher.ui.screens.content.LogViewScreen
+import com.movtery.zalithlauncher.ui.screens.content.MultiplayerScreen
+import com.movtery.zalithlauncher.ui.screens.content.SettingsScreen
+import com.movtery.zalithlauncher.ui.screens.content.VersionExportScreen
+import com.movtery.zalithlauncher.ui.screens.content.VersionSettingsScreen
+import com.movtery.zalithlauncher.ui.screens.content.VersionsManageScreen
+import com.movtery.zalithlauncher.ui.screens.content.WebViewScreen
+import com.movtery.zalithlauncher.ui.screens.content.navigateToDownload
+import com.movtery.zalithlauncher.ui.screens.navigateTo
+import com.movtery.zalithlauncher.ui.screens.onBack
+import com.movtery.zalithlauncher.ui.screens.rememberTransitionSpec
+import com.movtery.zalithlauncher.ui.theme.backgroundColor
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.feativals.FestivalTitleText
+import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.utils.animation.getAnimateTween
+import com.movtery.zalithlauncher.utils.festival.LocalFestivals
+import com.movtery.zalithlauncher.utils.file.formatFileSize
+import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+import com.movtery.zalithlauncher.viewmodel.EventViewModel
+import com.movtery.zalithlauncher.viewmodel.LocalBackgroundViewModel
+import com.movtery.zalithlauncher.viewmodel.ModpackImportViewModel
+import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
+import com.movtery.zalithlauncher.viewmodel.sendKeepScreen
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/main/MainScreen.kt
 
 @Composable
 fun MainScreen(
     screenBackStackModel: ScreenBackStackViewModel,
-    launchGameViewModel: LaunchGameViewModel,
     eventViewModel: EventViewModel,
     modpackImportViewModel: ModpackImportViewModel,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit
@@ -209,7 +256,6 @@ fun MainScreen(
                     modifier = Modifier.fillMaxSize(),
                     screenBackStackModel = screenBackStackModel,
                     toMainScreen = toMainScreen,
-                    launchGameViewModel = launchGameViewModel,
                     eventViewModel = eventViewModel,
                     modpackImportViewModel = modpackImportViewModel,
                     submitError = submitError
@@ -460,7 +506,6 @@ private fun NavigationUI(
     modifier: Modifier = Modifier,
     screenBackStackModel: ScreenBackStackViewModel,
     toMainScreen: () -> Unit,
-    launchGameViewModel: LaunchGameViewModel,
     eventViewModel: EventViewModel,
     modpackImportViewModel: ModpackImportViewModel,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit
@@ -502,7 +547,17 @@ private fun NavigationUI(
                     LauncherScreen(
                         backStackViewModel = screenBackStackModel,
                         navigateToVersions = navigateToVersions,
-                        launchGameViewModel = launchGameViewModel
+                        onLaunchGame = {
+                            eventViewModel.sendEvent(
+                                EventViewModel.Event.Launch.Main
+                            )
+                        },
+                        onOpenLink = {
+                            eventViewModel.sendEvent(EventViewModel.Event.OpenLink(it))
+                        },
+                        onHomePageEvent = { event ->
+                            eventViewModel.sendEvent(EventViewModel.Event.HomePage.Event(event))
+                        }
                     )
                 }
                 entry<NestedNavKey.Settings> { key ->
@@ -565,7 +620,6 @@ private fun NavigationUI(
                         onExportModpack = {
                             navigateToExport(key.version)
                         },
-                        launchGameViewModel = launchGameViewModel,
                         eventViewModel = eventViewModel,
                         submitError = submitError
                     )
@@ -591,6 +645,17 @@ private fun NavigationUI(
                     MultiplayerScreen(
                         backScreenViewModel = screenBackStackModel,
                         eventViewModel = eventViewModel
+                    )
+                }
+                entry<NormalNavKey.HomePageEditor> {
+                    HomePageEditorScreen(
+                        backStackViewModel = screenBackStackModel,
+                    )
+                }
+                entry<NormalNavKey.LogView> { key ->
+                    LogViewScreen(
+                        key = key,
+                        backStackViewModel = screenBackStackModel,
                     )
                 }
             }

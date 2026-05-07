@@ -79,6 +79,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/content/versions/SavesManagerScreen.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.context.COPY_LABEL_SAVE_SEED
 import net.hykyura.zalithone.coroutine.TaskSystem
@@ -123,6 +124,51 @@ import net.hykyura.zalithone.utils.copyText
 import net.hykyura.zalithone.utils.formatDate
 import net.hykyura.zalithone.viewmodel.ErrorViewModel
 import net.hykyura.zalithone.viewmodel.LaunchGameViewModel
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.COPY_LABEL_SAVE_SEED
+import com.movtery.zalithlauncher.coroutine.TaskSystem
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.installed.VersionFolders
+import com.movtery.zalithlauncher.game.version.installed.VersionInfo
+import com.movtery.zalithlauncher.game.version.saves.SaveData
+import com.movtery.zalithlauncher.game.version.saves.isCompatible
+import com.movtery.zalithlauncher.game.version.saves.parseLevelDatFile
+import com.movtery.zalithlauncher.game.version.saves.unpackSaveZip
+import com.movtery.zalithlauncher.ui.base.BaseScreen
+import com.movtery.zalithlauncher.ui.components.CardTitleLayout
+import com.movtery.zalithlauncher.ui.components.ContentCheckBox
+import com.movtery.zalithlauncher.ui.components.EdgeDirection
+import com.movtery.zalithlauncher.ui.components.IconTextButton
+import com.movtery.zalithlauncher.ui.components.LittleTextLabel
+import com.movtery.zalithlauncher.ui.components.ProgressDialog
+import com.movtery.zalithlauncher.ui.components.ScalingLabel
+import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
+import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
+import com.movtery.zalithlauncher.ui.components.TooltipIconButton
+import com.movtery.zalithlauncher.ui.components.fadeEdge
+import com.movtery.zalithlauncher.ui.screens.NestedNavKey
+import com.movtery.zalithlauncher.ui.screens.NormalNavKey
+import com.movtery.zalithlauncher.ui.screens.TitledNavKey
+import com.movtery.zalithlauncher.ui.screens.content.elements.ImportMultipleFileButton
+import com.movtery.zalithlauncher.ui.screens.content.elements.SortByDropdownMenu
+import com.movtery.zalithlauncher.ui.screens.content.elements.SortByEnum
+import com.movtery.zalithlauncher.ui.screens.content.elements.rememberMultipleUriImportTaskBuilder
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.FileNameInputDialog
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.LoadingState
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.MinecraftColorTextNormal
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.SavesFilter
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.SavesOperation
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.filterSaves
+import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.VersionChunkBackground
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
+import com.movtery.zalithlauncher.utils.animation.getAnimateTween
+import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
+import com.movtery.zalithlauncher.utils.copyText
+import com.movtery.zalithlauncher.utils.formatDate
+import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/content/versions/SavesManagerScreen.kt
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -251,8 +297,8 @@ private fun rememberSavesManageViewModel(
 fun SavesManagerScreen(
     mainScreenKey: TitledNavKey?,
     versionsScreenKey: TitledNavKey?,
-    launchGameViewModel: LaunchGameViewModel,
     version: Version,
+    onQuickPlay: (Version, String) -> Unit,
     backToMainScreen: () -> Unit,
     swapToDownload: () -> Unit,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit
@@ -313,10 +359,7 @@ fun SavesManagerScreen(
                         savesDir = savesDir,
                         updateOperation = { savesOperation = it },
                         quickPlay = { saveName ->
-                            launchGameViewModel.quickPlaySave(
-                                version = version,
-                                saveName = saveName
-                            )
+                            onQuickPlay(version, saveName)
                         },
                         renameSave = { saveData, newName ->
                             runProgress {

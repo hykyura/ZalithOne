@@ -74,6 +74,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.ImageLoader
 import coil3.compose.AsyncImage
 import coil3.gif.GifDecoder
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/content/elements/VersionsManageElements.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.game.addons.modloader.ModLoader
 import net.hykyura.zalithone.game.path.GamePath
@@ -97,6 +98,32 @@ import net.hykyura.zalithone.utils.logging.Logger.lError
 import net.hykyura.zalithone.utils.string.getMessageOrToString
 import net.hykyura.zalithone.utils.string.isNotEmptyOrBlank
 import net.hykyura.zalithone.viewmodel.ErrorViewModel
+=======
+import coil3.svg.SvgDecoder
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.game.addons.modloader.ModLoader
+import com.movtery.zalithlauncher.game.path.GamePath
+import com.movtery.zalithlauncher.game.path.GamePathManager
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.installed.VersionsManager
+import com.movtery.zalithlauncher.game.version.installed.cleanup.CleanFailedException
+import com.movtery.zalithlauncher.game.version.installed.cleanup.GameAssetCleaner
+import com.movtery.zalithlauncher.ui.components.LittleTextLabel
+import com.movtery.zalithlauncher.ui.components.MarqueeText
+import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
+import com.movtery.zalithlauncher.ui.components.SimpleCheckEditDialog
+import com.movtery.zalithlauncher.ui.components.SimpleEditDialog
+import com.movtery.zalithlauncher.ui.components.SimpleTaskDialog
+import com.movtery.zalithlauncher.ui.components.TextRailItem
+import com.movtery.zalithlauncher.ui.components.fadeEdge
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
+import com.movtery.zalithlauncher.utils.animation.getAnimateTween
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.utils.string.getMessageOrToString
+import com.movtery.zalithlauncher.utils.string.isNotEmptyOrBlank
+import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/content/elements/VersionsManageElements.kt
 import kotlinx.coroutines.Dispatchers
 
 sealed interface GamePathOperation {
@@ -927,7 +954,10 @@ fun VersionIconImage(
     val context = LocalContext.current
     val loader = remember(version, refreshKey) {
         ImageLoader.Builder(context)
-            .components { add(GifDecoder.Factory()) }
+            .components {
+                add(GifDecoder.Factory())
+                add(SvgDecoder.Factory())
+            }
             .build()
     }
 

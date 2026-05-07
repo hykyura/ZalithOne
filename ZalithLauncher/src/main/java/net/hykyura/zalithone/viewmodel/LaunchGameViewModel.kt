@@ -22,10 +22,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/viewmodel/LaunchGameViewModel.kt
 import net.hykyura.zalithone.game.launch.LaunchGame
 import net.hykyura.zalithone.game.version.installed.Version
 import net.hykyura.zalithone.ui.screens.content.elements.LaunchGameOperation
 import net.hykyura.zalithone.ui.screens.content.elements.QuickPlay
+=======
+import com.movtery.zalithlauncher.game.launch.LaunchGame
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.installed.VersionsManager
+import com.movtery.zalithlauncher.ui.screens.content.elements.LaunchGameOperation
+import com.movtery.zalithlauncher.ui.screens.content.elements.QuickPlay
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/viewmodel/LaunchGameViewModel.kt
 
 class LaunchGameViewModel : ViewModel() {
     /**
@@ -37,9 +45,8 @@ class LaunchGameViewModel : ViewModel() {
     /**
      * 尝试启动游戏
      */
-    fun tryLaunch(
-        version: Version?
-    ) {
+    fun tryLaunch() {
+        val version = VersionsManager.currentVersion.value
         if (launchGameOperation == LaunchGameOperation.None) {
             launchGameOperation = LaunchGameOperation.TryLaunch(version)
         }

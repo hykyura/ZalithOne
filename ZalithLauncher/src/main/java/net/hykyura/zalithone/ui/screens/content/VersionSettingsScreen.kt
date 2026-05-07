@@ -65,6 +65,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.JsonSyntaxException
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/content/VersionSettingsScreen.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.game.download.assets.platform.PlatformClasses
 import net.hykyura.zalithone.game.download.game.GameDownloadInfo
@@ -104,6 +105,46 @@ import net.hykyura.zalithone.viewmodel.ErrorViewModel
 import net.hykyura.zalithone.viewmodel.EventViewModel
 import net.hykyura.zalithone.viewmodel.LaunchGameViewModel
 import net.hykyura.zalithone.viewmodel.ScreenBackStackViewModel
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.game.download.assets.platform.PlatformClasses
+import com.movtery.zalithlauncher.game.download.game.GameDownloadInfo
+import com.movtery.zalithlauncher.game.download.game.GameInstaller
+import com.movtery.zalithlauncher.game.download.game.optifine.CantFetchingOptiFineUrlException
+import com.movtery.zalithlauncher.game.download.jvm_server.JvmCrashException
+import com.movtery.zalithlauncher.game.version.download.DownloadFailedException
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.installed.VersionsManager
+import com.movtery.zalithlauncher.notification.NotificationManager
+import com.movtery.zalithlauncher.ui.base.BaseScreen
+import com.movtery.zalithlauncher.ui.components.MarqueeText
+import com.movtery.zalithlauncher.ui.components.NotificationCheck
+import com.movtery.zalithlauncher.ui.components.fadeEdge
+import com.movtery.zalithlauncher.ui.screens.NestedNavKey
+import com.movtery.zalithlauncher.ui.screens.NormalNavKey
+import com.movtery.zalithlauncher.ui.screens.TitledNavKey
+import com.movtery.zalithlauncher.ui.screens.content.elements.CategoryIcon
+import com.movtery.zalithlauncher.ui.screens.content.elements.CategoryItem
+import com.movtery.zalithlauncher.ui.screens.content.elements.TitleTaskFlowDialog
+import com.movtery.zalithlauncher.ui.screens.content.versions.AddonDiffs
+import com.movtery.zalithlauncher.ui.screens.content.versions.ModsManagerScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.ResourcePackManageScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.SavesManagerScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.ScreenshotsManagerScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.ServerListScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.ShadersManagerScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.UpdateLoaderScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.VersionConfigScreen
+import com.movtery.zalithlauncher.ui.screens.content.versions.VersionOverViewScreen
+import com.movtery.zalithlauncher.ui.screens.navigateOnce
+import com.movtery.zalithlauncher.ui.screens.onBack
+import com.movtery.zalithlauncher.ui.screens.rememberTransitionSpec
+import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+import com.movtery.zalithlauncher.viewmodel.EventViewModel
+import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/content/VersionSettingsScreen.kt
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -195,7 +236,6 @@ fun VersionSettingsScreen(
     backScreenViewModel: ScreenBackStackViewModel,
     backToMainScreen: () -> Unit,
     onExportModpack: () -> Unit,
-    launchGameViewModel: LaunchGameViewModel,
     eventViewModel: EventViewModel,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit
 ) {
@@ -256,7 +296,6 @@ fun VersionSettingsScreen(
                 },
                 backToMainScreen = backToMainScreen,
                 onExport = onExportModpack,
-                launchGameViewModel = launchGameViewModel,
                 version = key.version,
                 eventViewModel = eventViewModel,
                 submitError = submitError
@@ -370,7 +409,6 @@ private fun NavigationUI(
     onCurrentKeyChange: (TitledNavKey?) -> Unit,
     backToMainScreen: () -> Unit,
     onExport: () -> Unit,
-    launchGameViewModel: LaunchGameViewModel,
     version: Version,
     eventViewModel: EventViewModel,
     submitError: (ErrorViewModel.ThrowableMessage) -> Unit
@@ -400,6 +438,16 @@ private fun NavigationUI(
                         versionsScreenKey = versionsScreenKey,
                         backToMainScreen = backToMainScreen,
                         onExport = onExport,
+                        onViewLog = { logFile ->
+                            backScreenViewModel.mainScreen.backStack.navigateToLogView(
+                                logPath = logFile.absolutePath
+                            )
+                        },
+                        onLink = { link ->
+                            eventViewModel.sendEvent(
+                                EventViewModel.Event.OpenLink(link)
+                            )
+                        },
                         version = version,
                         submitError = submitError
                     )
@@ -460,12 +508,19 @@ private fun NavigationUI(
                     SavesManagerScreen(
                         mainScreenKey = mainScreenKey,
                         versionsScreenKey = versionsScreenKey,
-                        launchGameViewModel = launchGameViewModel,
                         version = version,
                         backToMainScreen = backToMainScreen,
                         swapToDownload = {
                             backScreenViewModel.navigateToDownload(
                                 targetScreen = backScreenViewModel.downloadSavesScreen
+                            )
+                        },
+                        onQuickPlay = { version, saveName ->
+                            eventViewModel.sendEvent(
+                                EventViewModel.Event.Launch.PlaySave(
+                                    version = version,
+                                    saveName = saveName
+                                )
                             )
                         },
                         submitError = submitError
@@ -512,8 +567,15 @@ private fun NavigationUI(
                     ServerListScreen(
                         mainScreenKey = mainScreenKey,
                         versionsScreenKey = versionsScreenKey,
-                        launchGameViewModel = launchGameViewModel,
                         version = version,
+                        onQuickPlay = { version, address ->
+                            eventViewModel.sendEvent(
+                                EventViewModel.Event.Launch.PlayServer(
+                                    version = version,
+                                    address = address
+                                )
+                            )
+                        },
                         backToMainScreen = backToMainScreen,
                     )
                 }

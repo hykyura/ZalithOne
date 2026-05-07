@@ -18,6 +18,7 @@
 
 package net.hykyura.zalithone.game.version.installed
 
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/game/version/installed/VersionsManager.kt
 import net.hykyura.zalithone.game.path.getVersionsHome
 import net.hykyura.zalithone.game.version.installed.utils.parseJsonToVersionInfo
 import net.hykyura.zalithone.info.InfoDistributor
@@ -25,6 +26,16 @@ import net.hykyura.zalithone.utils.logging.Logger.lDebug
 import net.hykyura.zalithone.utils.logging.Logger.lError
 import net.hykyura.zalithone.utils.logging.Logger.lInfo
 import net.hykyura.zalithone.utils.logging.Logger.lWarning
+=======
+import com.movtery.zalithlauncher.game.launch.LogName
+import com.movtery.zalithlauncher.game.path.getVersionsHome
+import com.movtery.zalithlauncher.game.version.installed.utils.parseJsonToVersionInfo
+import com.movtery.zalithlauncher.info.InfoDistributor
+import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/game/version/installed/VersionsManager.kt
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -201,7 +212,7 @@ object VersionsManager {
         _currentVersion.update { version }
     }
 
-    private fun getVersion(name: String?): Version? {
+    fun getVersion(name: String?): Version? {
         name?.let { versionName ->
             return versions.find { it.getVersionName() == versionName }?.takeIf { it.isValid() }
         }
@@ -228,6 +239,11 @@ object VersionsManager {
      * @return 通过名称获取 Zalith 启动器版本标识文件夹
      */
     fun getZalithVersionPath(name: String) = File(getVersionPath(name), InfoDistributor.LAUNCHER_IDENTIFIER)
+
+    /**
+     * @return 游戏的上一次运行日志
+     */
+    fun getLatestLog(version: Version) = File(getZalithVersionPath(version), LogName.GAME.fileName)
 
     /**
      * @return 获取当前版本设置的图标

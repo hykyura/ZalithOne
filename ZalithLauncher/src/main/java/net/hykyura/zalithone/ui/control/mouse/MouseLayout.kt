@@ -44,6 +44,7 @@ import coil3.ImageLoader
 import coil3.compose.AsyncImage
 import coil3.gif.GifDecoder
 import coil3.request.crossfade
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/control/mouse/MouseLayout.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.bridge.CursorShape
 import net.hykyura.zalithone.bridge.ZLBridgeStates
@@ -53,6 +54,18 @@ import net.hykyura.zalithone.setting.enums.MouseControlMode
 import net.hykyura.zalithone.utils.device.PhysicalMouseChecker
 import net.hykyura.zalithone.utils.file.child
 import net.hykyura.zalithone.utils.file.ifExists
+=======
+import coil3.svg.SvgDecoder
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.bridge.CursorShape
+import com.movtery.zalithlauncher.bridge.ZLBridgeStates
+import com.movtery.zalithlauncher.path.PathManager
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.setting.enums.MouseControlMode
+import com.movtery.zalithlauncher.utils.device.PhysicalMouseChecker
+import com.movtery.zalithlauncher.utils.file.child
+import com.movtery.zalithlauncher.utils.file.ifExists
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/control/mouse/MouseLayout.kt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -323,7 +336,10 @@ fun MousePointer(
     val context = LocalContext.current
     val loader = remember(triggerRefresh, crossfade, mouseSize) {
         ImageLoader.Builder(context)
-            .components { add(GifDecoder.Factory()) }
+            .components {
+                add(GifDecoder.Factory())
+                add(SvgDecoder.Factory())
+            }
             .crossfade(crossfade)
             .build()
     }

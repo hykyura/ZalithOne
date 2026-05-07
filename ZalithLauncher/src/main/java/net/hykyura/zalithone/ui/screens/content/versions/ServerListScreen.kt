@@ -96,6 +96,7 @@ import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/content/versions/ServerListScreen.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.context.COPY_LABEL_SERVER_IP
 import net.hykyura.zalithone.game.version.installed.Version
@@ -135,6 +136,46 @@ import net.hykyura.zalithone.utils.logging.Logger.lInfo
 import net.hykyura.zalithone.utils.string.isEmptyOrBlank
 import net.hykyura.zalithone.utils.string.stripColorCodes
 import net.hykyura.zalithone.viewmodel.LaunchGameViewModel
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.COPY_LABEL_SERVER_IP
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.multiplayer.AllServers
+import com.movtery.zalithlauncher.game.version.multiplayer.ServerData
+import com.movtery.zalithlauncher.game.version.multiplayer.description.ComponentDescription
+import com.movtery.zalithlauncher.game.version.multiplayer.description.ComponentDescriptionRoot
+import com.movtery.zalithlauncher.game.version.multiplayer.description.ServerDescription
+import com.movtery.zalithlauncher.game.version.multiplayer.description.StringDescription
+import com.movtery.zalithlauncher.ui.base.BaseScreen
+import com.movtery.zalithlauncher.ui.components.CardTitleLayout
+import com.movtery.zalithlauncher.ui.components.EdgeDirection
+import com.movtery.zalithlauncher.ui.components.IconTextButton
+import com.movtery.zalithlauncher.ui.components.MarqueeText
+import com.movtery.zalithlauncher.ui.components.OwnOutlinedTextField
+import com.movtery.zalithlauncher.ui.components.ScalingLabel
+import com.movtery.zalithlauncher.ui.components.ShimmerBox
+import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
+import com.movtery.zalithlauncher.ui.components.SimpleTextInputField
+import com.movtery.zalithlauncher.ui.components.SingleLineTextCheck
+import com.movtery.zalithlauncher.ui.components.fadeEdge
+import com.movtery.zalithlauncher.ui.screens.NestedNavKey
+import com.movtery.zalithlauncher.ui.screens.NormalNavKey
+import com.movtery.zalithlauncher.ui.screens.TitledNavKey
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.ComponentText
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.MinecraftColorText
+import com.movtery.zalithlauncher.ui.screens.content.versions.elements.MinecraftColorTextNormal
+import com.movtery.zalithlauncher.ui.screens.content.versions.layouts.VersionChunkBackground
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.itemColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.ui.theme.onItemColor
+import com.movtery.zalithlauncher.utils.animation.getAnimateTween
+import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
+import com.movtery.zalithlauncher.utils.copyText
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.movtery.zalithlauncher.utils.string.isEmptyOrBlank
+import com.movtery.zalithlauncher.utils.string.stripColorCodes
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/content/versions/ServerListScreen.kt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -473,8 +514,8 @@ private fun ServerDataOperation(
 fun ServerListScreen(
     mainScreenKey: TitledNavKey?,
     versionsScreenKey: TitledNavKey?,
-    launchGameViewModel: LaunchGameViewModel,
     version: Version,
+    onQuickPlay: (Version, String) -> Unit,
     backToMainScreen: () -> Unit,
 ) {
     if (!version.isValid()) {
@@ -572,7 +613,7 @@ fun ServerListScreen(
                             onRefresh = { viewModel.loadServer(it, true) },
                             onCopy = { viewModel.copy(context, it) },
                             onPlay = { address ->
-                                launchGameViewModel.quickPlayServer(version, address)
+                                onQuickPlay(version, address)
                             },
                             onEdit = { data ->
                                 viewModel.dataOperation = ServerDataOperation.EditServer(data)

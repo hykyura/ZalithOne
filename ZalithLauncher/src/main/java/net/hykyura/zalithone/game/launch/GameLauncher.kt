@@ -22,6 +22,7 @@ import android.app.Activity
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.ui.unit.IntSize
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/game/launch/GameLauncher.kt
 import net.hykyura.zalithone.BuildConfig
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.ZLApplication
@@ -56,6 +57,45 @@ import net.hykyura.zalithone.utils.logging.Logger.lInfo
 import net.hykyura.zalithone.utils.logging.Logger.lWarning
 import net.hykyura.zalithone.utils.string.isBiggerTo
 import net.hykyura.zalithone.utils.string.isEqualTo
+=======
+import com.movtery.zalithlauncher.BuildConfig
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.ZLApplication
+import com.movtery.zalithlauncher.bridge.LoggerBridge.append
+import com.movtery.zalithlauncher.bridge.LoggerBridge.appendTitle
+import com.movtery.zalithlauncher.bridge.ZLBridge
+import com.movtery.zalithlauncher.context.readAssetFile
+import com.movtery.zalithlauncher.game.account.Account
+import com.movtery.zalithlauncher.game.account.AccountType
+import com.movtery.zalithlauncher.game.account.AccountsManager
+import com.movtery.zalithlauncher.game.account.offline.OfflineYggdrasilServer
+import com.movtery.zalithlauncher.game.addons.modloader.ModLoader
+import com.movtery.zalithlauncher.game.download.game.parseLibraryComponents
+import com.movtery.zalithlauncher.game.multirt.Runtime
+import com.movtery.zalithlauncher.game.multirt.RuntimesManager
+import com.movtery.zalithlauncher.game.path.GamePathManager
+import com.movtery.zalithlauncher.game.plugin.driver.DriverPluginManager
+import com.movtery.zalithlauncher.game.plugin.renderer.RendererPluginManager
+import com.movtery.zalithlauncher.game.renderer.Renderers
+import com.movtery.zalithlauncher.game.support.touch_controller.ControllerProxy
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.game.version.installed.VersionsManager
+import com.movtery.zalithlauncher.game.version.installed.getGameManifest
+import com.movtery.zalithlauncher.game.versioninfo.models.GameManifest
+import com.movtery.zalithlauncher.path.LibPath
+import com.movtery.zalithlauncher.path.PathManager
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.utils.GSON
+import com.movtery.zalithlauncher.utils.device.Architecture
+import com.movtery.zalithlauncher.utils.file.child
+import com.movtery.zalithlauncher.utils.file.ensureDirectorySilently
+import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
+import com.movtery.zalithlauncher.utils.string.isBiggerTo
+import com.movtery.zalithlauncher.utils.string.isEqualTo
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/game/launch/GameLauncher.kt
 import org.lwjgl.glfw.CallbackBridge
 import java.io.File
 import javax.microedition.khronos.egl.EGL10
@@ -80,7 +120,13 @@ class GameLauncher(
             Renderers.setCurrentRenderer(activity, version.getRenderer())
         }
 
-        gameManifest = getGameManifest(version)
+        val manifest = GSON.fromJson(File(version.getVersionPath(), "${version.getVersionName()}.json").readText(), GameManifest::class.java)
+        val clientJar = manifest.inheritsFrom?.let { inheritsFrom ->
+            //FIXME: 依赖的是一个原版ID的版本，但这个版本可能是用户自行安装的，只是版本名称与ID一致，不保证客户端真的是对应版本
+            VersionsManager.getVersion(inheritsFrom)?.getClientJar()
+        } ?: version.getClientJar()
+
+        gameManifest = getGameManifest(version, gameManifest = manifest)
         CallbackBridge.nativeSetUseInputStackQueue(gameManifest.arguments != null)
 
         val currentAccount = AccountsManager.currentAccountFlow.value!!
@@ -104,6 +150,7 @@ class GameLauncher(
         return launchGame(
             screenSize = screenSize,
             account = account,
+            clientJar = clientJar,
             javaRuntime = javaRuntime,
             customArgs = customArgs
         )
@@ -137,7 +184,7 @@ class GameLauncher(
         return version.getGameDir().absolutePath
     }
 
-    override fun getLogName(): String = LogName.GAME.fileName
+    override fun getLogFile(): File = VersionsManager.getLatestLog(version)
 
     override fun initEnv(screenSize: IntSize): MutableMap<String, String> {
         val envMap = super.initEnv(screenSize)
@@ -181,6 +228,7 @@ class GameLauncher(
     private suspend fun launchGame(
         screenSize: IntSize,
         account: Account,
+        clientJar: File,
         javaRuntime: String,
         customArgs: String
     ): Int {
@@ -200,6 +248,7 @@ class GameLauncher(
             offlineServer = offlineServer,
             gameDirPath = gameDirPath,
             version = version,
+            clientJar = clientJar,
             gameManifest = gameManifest,
             runtime = runtime,
             readAssetsFile = { path -> activity.readAssetFile(path) },
@@ -213,6 +262,7 @@ class GameLauncher(
         return launchJvm(
             context = activity,
             jvmArgs = launchArgs,
+            userHome = GamePathManager.getCurrentPath(),
             userArgs = customArgs,
             screenSize = screenSize
         )

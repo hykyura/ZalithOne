@@ -59,6 +59,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.jakewharton.processphoenix.ProcessPhoenix
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/activities/VMActivity.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.bridge.CURSOR_DISABLED
 import net.hykyura.zalithone.bridge.LoggerBridge
@@ -95,6 +96,45 @@ import net.hykyura.zalithone.utils.getParcelableSafely
 import net.hykyura.zalithone.viewmodel.ErrorViewModel
 import net.hykyura.zalithone.viewmodel.EventViewModel
 import net.hykyura.zalithone.viewmodel.GamepadViewModel
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.bridge.CURSOR_DISABLED
+import com.movtery.zalithlauncher.bridge.LoggerBridge
+import com.movtery.zalithlauncher.bridge.ZLBridge
+import com.movtery.zalithlauncher.bridge.ZLBridgeStates
+import com.movtery.zalithlauncher.coroutine.DataBridge
+import com.movtery.zalithlauncher.game.input.AWTCharSender
+import com.movtery.zalithlauncher.game.input.CharacterSenderStrategy
+import com.movtery.zalithlauncher.game.input.LWJGLCharSender
+import com.movtery.zalithlauncher.game.keycodes.LwjglGlfwKeycode
+import com.movtery.zalithlauncher.game.launch.GameLauncher
+import com.movtery.zalithlauncher.game.launch.GameService
+import com.movtery.zalithlauncher.game.launch.JvmLaunchInfo
+import com.movtery.zalithlauncher.game.launch.JvmLauncher
+import com.movtery.zalithlauncher.game.launch.Launcher
+import com.movtery.zalithlauncher.game.launch.handler.AbstractHandler
+import com.movtery.zalithlauncher.game.launch.handler.GameHandler
+import com.movtery.zalithlauncher.game.launch.handler.HandlerType
+import com.movtery.zalithlauncher.game.launch.handler.JVMHandler
+import com.movtery.zalithlauncher.game.multirt.RuntimesManager
+import com.movtery.zalithlauncher.game.version.installed.Version
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.terracotta.TerracottaVPNService
+import com.movtery.zalithlauncher.ui.base.BaseAppCompatActivity
+import com.movtery.zalithlauncher.ui.base.applyFullscreen
+import com.movtery.zalithlauncher.ui.components.rememberBoxSize
+import com.movtery.zalithlauncher.ui.control.input.HidableInputLayout
+import com.movtery.zalithlauncher.ui.control.input.TextInputMode
+import com.movtery.zalithlauncher.ui.screens.game.elements.OpenFolderLayer
+import com.movtery.zalithlauncher.ui.screens.game.elements.OpenFolderOperation
+import com.movtery.zalithlauncher.ui.theme.ZalithLauncherTheme
+import com.movtery.zalithlauncher.utils.device.PhysicalMouseChecker
+import com.movtery.zalithlauncher.utils.getDisplayFriendlyRes
+import com.movtery.zalithlauncher.utils.getParcelableSafely
+import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
+import com.movtery.zalithlauncher.viewmodel.EventViewModel
+import com.movtery.zalithlauncher.viewmodel.GamepadViewModel
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/activities/VMActivity.kt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -344,7 +384,10 @@ class VMActivity : BaseAppCompatActivity(), SurfaceTextureListener, SurfaceHolde
             gamepadViewModel = gamepadViewModel,
             exitListener = { exitCode: Int, isSignal: Boolean ->
                 if (exitCode != 0) {
-                    showExitMessage(this, exitCode, isSignal)
+                    val logPath = withLauncher {
+                        getLogFile().absolutePath
+                    }
+                    showExitMessage(this@VMActivity, exitCode, isSignal, logPath)
                 } else {
                     //重启启动器
                     ProcessPhoenix.triggerRebirth(this@VMActivity)
@@ -365,7 +408,7 @@ class VMActivity : BaseAppCompatActivity(), SurfaceTextureListener, SurfaceHolde
             addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) // 防止系统息屏
         }
 
-        val logFile = File(PathManager.DIR_FILES_EXTERNAL, "${withLauncher { getLogName() } }.log")
+        val logFile = withLauncher { getLogFile() }
         if (!logFile.exists() && !logFile.createNewFile()) throw IOException("Failed to create a new log file")
         LoggerBridge.start(logFile.absolutePath)
 

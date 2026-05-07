@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.MaterialTheme
@@ -39,6 +41,7 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/upgrade/LauncherUpgradeDialog.kt
 import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
 import com.mikepenz.markdown.compose.LazyMarkdownSuccess
 import com.mikepenz.markdown.m3.Markdown
@@ -51,6 +54,17 @@ import net.hykyura.zalithone.upgrade.RemoteData
 import net.hykyura.zalithone.upgrade.findCurrentBody
 import net.hykyura.zalithone.upgrade.getCurrentCouldDrive
 import net.hykyura.zalithone.utils.formatDate
+=======
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.ui.components.MarkdownView
+import com.movtery.zalithlauncher.ui.components.defaultRichTextStyle
+import com.movtery.zalithlauncher.ui.theme.cardColor
+import com.movtery.zalithlauncher.ui.theme.onCardColor
+import com.movtery.zalithlauncher.upgrade.RemoteData
+import com.movtery.zalithlauncher.upgrade.findCurrentBody
+import com.movtery.zalithlauncher.upgrade.getCurrentCouldDrive
+import com.movtery.zalithlauncher.utils.formatDate
+>>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/upgrade/LauncherUpgradeDialog.kt
 import java.util.Locale
 
 @Composable
@@ -103,9 +117,6 @@ fun UpgradeDialog(
                 )
                 val markdownBody = "$versionStr  \n$dateStr  \n\n${body.markdown}"
 
-                val state = rememberMarkdownState(
-                    content = markdownBody,
-                )
                 CompositionLocalProvider(
                     LocalUriHandler provides object : UriHandler {
                         override fun openUri(uri: String) {
@@ -113,21 +124,14 @@ fun UpgradeDialog(
                         }
                     }
                 ) {
-                    Markdown(
+                    MarkdownView(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f, fill = false)
-                            .padding(horizontal = 20.dp),
-                        markdownState = state,
-                        typography = defaultMDTypography(),
-                        imageTransformer = Coil3ImageTransformerImpl,
-                        success = { state, components, modifier ->
-                            LazyMarkdownSuccess(
-                                modifier = modifier,
-                                state = state,
-                                components = components,
-                            )
-                        },
+                            .padding(horizontal = 20.dp)
+                            .verticalScroll(rememberScrollState()),
+                        content = markdownBody,
+                        richTextStyle = defaultRichTextStyle(),
                     )
                 }
 
