@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.code_editor
+package net.hykyura.zalithone.ui.code_editor
 
 import android.graphics.Typeface
 import androidx.compose.foundation.layout.Box
@@ -39,8 +39,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.viewinterop.AndroidView
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
+import net.hykyura.zalithone.R
+import net.hykyura.zalithone.ui.theme.onBackgroundColor
 import io.github.rosemoe.sora.lang.Language
 import io.github.rosemoe.sora.text.Content
 import io.github.rosemoe.sora.widget.CodeEditor

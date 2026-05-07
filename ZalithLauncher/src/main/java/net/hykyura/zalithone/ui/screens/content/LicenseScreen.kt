@@ -28,30 +28,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/content/LicenseScreen.kt
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
+import net.hykyura.zalithone.context.readRawContent
+import net.hykyura.zalithone.setting.enums.isLauncherInDarkTheme
 import net.hykyura.zalithone.ui.base.BaseScreen
+import net.hykyura.zalithone.ui.code_editor.EditorState
+import net.hykyura.zalithone.ui.code_editor.SoraEditor
+import net.hykyura.zalithone.ui.code_editor.scheme.SchemeIDEADark
+import net.hykyura.zalithone.ui.code_editor.scheme.SchemeIDEALight
 import net.hykyura.zalithone.ui.screens.NormalNavKey
-import net.hykyura.zalithone.ui.theme.backgroundColor
-import net.hykyura.zalithone.ui.theme.onBackgroundColor
-import net.hykyura.zalithone.utils.animation.swapAnimateDpAsState
+import net.hykyura.zalithone.utils.logging.Logger.lWarning
 import net.hykyura.zalithone.viewmodel.ScreenBackStackViewModel
-=======
-import com.movtery.zalithlauncher.context.readRawContent
-import com.movtery.zalithlauncher.setting.enums.isLauncherInDarkTheme
-import com.movtery.zalithlauncher.ui.base.BaseScreen
-import com.movtery.zalithlauncher.ui.code_editor.EditorState
-import com.movtery.zalithlauncher.ui.code_editor.SoraEditor
-import com.movtery.zalithlauncher.ui.code_editor.scheme.SchemeIDEADark
-import com.movtery.zalithlauncher.ui.code_editor.scheme.SchemeIDEALight
-import com.movtery.zalithlauncher.ui.screens.NormalNavKey
-import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
-import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
 import io.github.rosemoe.sora.text.Content
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/content/LicenseScreen.kt
 
 @Composable
 fun LicenseScreen(

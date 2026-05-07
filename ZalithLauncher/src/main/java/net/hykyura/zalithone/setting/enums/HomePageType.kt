@@ -16,10 +16,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.setting.enums
+package net.hykyura.zalithone.setting.enums
 
 import androidx.annotation.StringRes
-import com.movtery.zalithlauncher.R
+import net.hykyura.zalithone.R
 
 /**
  * 启动器主页类型

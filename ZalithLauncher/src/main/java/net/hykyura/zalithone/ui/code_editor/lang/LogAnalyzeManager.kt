@@ -16,9 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.code_editor.lang
+package net.hykyura.zalithone.ui.code_editor.lang
 
-import com.movtery.zalithlauncher.ui.screens.game.elements.log_parser.LogParseCore
+import net.hykyura.zalithone.ui.screens.game.elements.log_parser.LogParseCore
 import io.github.rosemoe.sora.lang.analysis.SimpleAnalyzeManager
 import io.github.rosemoe.sora.lang.styling.MappedSpans
 import io.github.rosemoe.sora.lang.styling.SpanFactory

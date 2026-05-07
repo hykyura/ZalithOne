@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.screens.content
+package net.hykyura.zalithone.ui.screens.content
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -26,15 +26,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.movtery.zalithlauncher.setting.enums.isLauncherInDarkTheme
-import com.movtery.zalithlauncher.ui.base.BaseScreen
-import com.movtery.zalithlauncher.ui.code_editor.SoraEditor
-import com.movtery.zalithlauncher.ui.code_editor.lang.MarkdownLanguage
-import com.movtery.zalithlauncher.ui.code_editor.scheme.SchemeIDEADark
-import com.movtery.zalithlauncher.ui.code_editor.scheme.SchemeIDEALight
-import com.movtery.zalithlauncher.ui.screens.NormalNavKey
-import com.movtery.zalithlauncher.viewmodel.LocalHomePageViewModel
-import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
+import net.hykyura.zalithone.setting.enums.isLauncherInDarkTheme
+import net.hykyura.zalithone.ui.base.BaseScreen
+import net.hykyura.zalithone.ui.code_editor.SoraEditor
+import net.hykyura.zalithone.ui.code_editor.lang.MarkdownLanguage
+import net.hykyura.zalithone.ui.code_editor.scheme.SchemeIDEADark
+import net.hykyura.zalithone.ui.code_editor.scheme.SchemeIDEALight
+import net.hykyura.zalithone.ui.screens.NormalNavKey
+import net.hykyura.zalithone.viewmodel.LocalHomePageViewModel
+import net.hykyura.zalithone.viewmodel.ScreenBackStackViewModel
 
 @Composable
 fun HomePageEditorScreen(

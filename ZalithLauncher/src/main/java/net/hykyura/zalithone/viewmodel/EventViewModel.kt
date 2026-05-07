@@ -22,13 +22,9 @@ import android.net.Uri
 import android.view.KeyEvent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/viewmodel/EventViewModel.kt
+import net.hykyura.zalithone.game.version.installed.Version
 import net.hykyura.zalithone.ui.control.input.TextInputMode
-=======
-import com.movtery.zalithlauncher.game.version.installed.Version
-import com.movtery.zalithlauncher.ui.control.input.TextInputMode
-import com.movtery.zalithlauncher.ui.screens.main.custom_home.MarkdownBlock
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/viewmodel/EventViewModel.kt
+import net.hykyura.zalithone.ui.screens.main.custom_home.MarkdownBlock
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch

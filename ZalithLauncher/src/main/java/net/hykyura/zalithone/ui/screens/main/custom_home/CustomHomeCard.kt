@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.screens.main.custom_home
+package net.hykyura.zalithone.ui.screens.main.custom_home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,10 +29,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
-import com.movtery.zalithlauncher.ui.components.BackgroundCard
-import com.movtery.zalithlauncher.ui.components.CardTitleLayout
-import com.movtery.zalithlauncher.ui.theme.cardColor
-import com.movtery.zalithlauncher.ui.theme.onCardColor
+import net.hykyura.zalithone.ui.components.BackgroundCard
+import net.hykyura.zalithone.ui.components.CardTitleLayout
+import net.hykyura.zalithone.ui.theme.cardColor
+import net.hykyura.zalithone.ui.theme.onCardColor
 
 /**
  * 一个用于包装 Markdown 内容的卡片组件

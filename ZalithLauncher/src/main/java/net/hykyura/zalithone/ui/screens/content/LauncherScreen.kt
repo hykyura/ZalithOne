@@ -56,7 +56,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/screens/content/LauncherScreen.kt
 import net.hykyura.zalithone.BuildConfig
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.game.account.AccountsManager
@@ -67,36 +66,17 @@ import net.hykyura.zalithone.ui.base.BaseScreen
 import net.hykyura.zalithone.ui.components.BackgroundCard
 import net.hykyura.zalithone.ui.components.MarqueeText
 import net.hykyura.zalithone.ui.components.ScalingActionButton
+import net.hykyura.zalithone.ui.components.defaultRichTextStyle
 import net.hykyura.zalithone.ui.screens.NestedNavKey
 import net.hykyura.zalithone.ui.screens.NormalNavKey
 import net.hykyura.zalithone.ui.screens.content.elements.AccountAvatar
 import net.hykyura.zalithone.ui.screens.content.elements.VersionIconImage
+import net.hykyura.zalithone.ui.screens.main.custom_home.MarkdownBlock
+import net.hykyura.zalithone.ui.screens.main.custom_home.customHomePage
 import net.hykyura.zalithone.utils.animation.swapAnimateDpAsState
-import net.hykyura.zalithone.viewmodel.LaunchGameViewModel
+import net.hykyura.zalithone.viewmodel.HomePageState
+import net.hykyura.zalithone.viewmodel.LocalHomePageViewModel
 import net.hykyura.zalithone.viewmodel.ScreenBackStackViewModel
-=======
-import com.movtery.zalithlauncher.BuildConfig
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.game.account.AccountsManager
-import com.movtery.zalithlauncher.game.version.installed.Version
-import com.movtery.zalithlauncher.game.version.installed.VersionsManager
-import com.movtery.zalithlauncher.info.InfoDistributor
-import com.movtery.zalithlauncher.ui.base.BaseScreen
-import com.movtery.zalithlauncher.ui.components.BackgroundCard
-import com.movtery.zalithlauncher.ui.components.MarqueeText
-import com.movtery.zalithlauncher.ui.components.ScalingActionButton
-import com.movtery.zalithlauncher.ui.components.defaultRichTextStyle
-import com.movtery.zalithlauncher.ui.screens.NestedNavKey
-import com.movtery.zalithlauncher.ui.screens.NormalNavKey
-import com.movtery.zalithlauncher.ui.screens.content.elements.AccountAvatar
-import com.movtery.zalithlauncher.ui.screens.content.elements.VersionIconImage
-import com.movtery.zalithlauncher.ui.screens.main.custom_home.MarkdownBlock
-import com.movtery.zalithlauncher.ui.screens.main.custom_home.customHomePage
-import com.movtery.zalithlauncher.utils.animation.swapAnimateDpAsState
-import com.movtery.zalithlauncher.viewmodel.HomePageState
-import com.movtery.zalithlauncher.viewmodel.LocalHomePageViewModel
-import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/screens/content/LauncherScreen.kt
 
 @Composable
 fun LauncherScreen(

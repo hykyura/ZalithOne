@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.code_editor.scheme
+package net.hykyura.zalithone.ui.code_editor.scheme
 
 import io.github.rosemoe.sora.widget.schemes.EditorColorScheme
 

@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.screens.game.elements.log_parser
+package net.hykyura.zalithone.ui.screens.game.elements.log_parser
 
 /**
  * 日志解析的共用逻辑

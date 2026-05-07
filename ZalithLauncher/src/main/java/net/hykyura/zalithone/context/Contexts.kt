@@ -23,18 +23,11 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.DocumentsContract
 import android.provider.OpenableColumns
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/context/Contexts.kt
+import androidx.annotation.RawRes
 import net.hykyura.zalithone.path.PathManager
 import net.hykyura.zalithone.utils.file.ensureParentDirectory
 import net.hykyura.zalithone.utils.file.readString
 import net.hykyura.zalithone.utils.logging.Logger.lWarning
-=======
-import androidx.annotation.RawRes
-import com.movtery.zalithlauncher.path.PathManager
-import com.movtery.zalithlauncher.utils.file.ensureParentDirectory
-import com.movtery.zalithlauncher.utils.file.readString
-import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/context/Contexts.kt
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.FileOutputStream

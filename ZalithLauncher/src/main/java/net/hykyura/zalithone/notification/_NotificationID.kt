@@ -1,6 +1,3 @@
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/notification/_NotificationID.kt
-package net.hykyura.zalithone.notification
-=======
 /*
  * Zalith Launcher 2
  * Copyright (C) 2025 MovTery <movtery228@qq.com> and contributors
@@ -19,8 +16,7 @@ package net.hykyura.zalithone.notification
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.notification
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/notification/_NotificationID.kt
+package net.hykyura.zalithone.notification
 
 const val NOTIFICATION_ID_JVM_SERVICE = 1001
 const val NOTIFICATION_ID_GAME_SERVICE = 1002

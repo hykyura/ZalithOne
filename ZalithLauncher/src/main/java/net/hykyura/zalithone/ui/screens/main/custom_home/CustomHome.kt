@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.screens.main.custom_home
+package net.hykyura.zalithone.ui.screens.main.custom_home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,9 +37,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.halilibo.richtext.markdown.node.AstNode
 import com.halilibo.richtext.ui.RichTextStyle
-import com.movtery.zalithlauncher.ui.components.MarkdownView
-import com.movtery.zalithlauncher.ui.components.defaultRichTextStyle
-import com.movtery.zalithlauncher.ui.theme.itemColor
+import net.hykyura.zalithone.ui.components.MarkdownView
+import net.hykyura.zalithone.ui.components.defaultRichTextStyle
+import net.hykyura.zalithone.ui.theme.itemColor
 
 fun LazyListScope.customHomePage(
     blocks: List<MarkdownBlock>,

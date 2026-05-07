@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.viewmodel
+package net.hykyura.zalithone.viewmodel
 
 import android.content.Context
 import android.widget.Toast
@@ -28,20 +28,20 @@ import androidx.lifecycle.viewModelScope
 import com.halilibo.richtext.commonmark.CommonMarkdownParseOptions
 import com.halilibo.richtext.commonmark.CommonmarkAstNodeParser
 import com.halilibo.richtext.markdown.node.AstNode
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.context.copyAssetFile
-import com.movtery.zalithlauncher.path.PathManager
-import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.setting.enums.HomePageType
-import com.movtery.zalithlauncher.ui.code_editor.EditorState
-import com.movtery.zalithlauncher.ui.components.SimpleAlertDialog
-import com.movtery.zalithlauncher.ui.screens.main.custom_home.MarkdownBlock
-import com.movtery.zalithlauncher.ui.screens.main.custom_home.parseMarkdownBlocks
-import com.movtery.zalithlauncher.utils.isInGreaterChina
-import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
-import com.movtery.zalithlauncher.utils.network.fetchStringFromUrl
-import com.movtery.zalithlauncher.utils.string.isEmptyOrBlank
-import com.movtery.zalithlauncher.utils.string.toUuid
+import net.hykyura.zalithone.R
+import net.hykyura.zalithone.context.copyAssetFile
+import net.hykyura.zalithone.path.PathManager
+import net.hykyura.zalithone.setting.AllSettings
+import net.hykyura.zalithone.setting.enums.HomePageType
+import net.hykyura.zalithone.ui.code_editor.EditorState
+import net.hykyura.zalithone.ui.components.SimpleAlertDialog
+import net.hykyura.zalithone.ui.screens.main.custom_home.MarkdownBlock
+import net.hykyura.zalithone.ui.screens.main.custom_home.parseMarkdownBlocks
+import net.hykyura.zalithone.utils.isInGreaterChina
+import net.hykyura.zalithone.utils.logging.Logger.lWarning
+import net.hykyura.zalithone.utils.network.fetchStringFromUrl
+import net.hykyura.zalithone.utils.string.isEmptyOrBlank
+import net.hykyura.zalithone.utils.string.toUuid
 import io.github.rosemoe.sora.text.Content
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers

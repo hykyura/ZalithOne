@@ -1,6 +1,3 @@
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/utils/file/FolderFileCounter.kt
-package net.hykyura.zalithone.utils.file
-=======
 /*
  * Zalith Launcher 2
  * Copyright (C) 2025 MovTery <movtery228@qq.com> and contributors
@@ -19,8 +16,7 @@ package net.hykyura.zalithone.utils.file
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.utils.file
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/utils/file/FolderFileCounter.kt
+package net.hykyura.zalithone.utils.file
 
 import java.io.File
 

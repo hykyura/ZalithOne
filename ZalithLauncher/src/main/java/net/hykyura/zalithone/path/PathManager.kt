@@ -20,7 +20,7 @@ package net.hykyura.zalithone.path
 
 import android.content.Context
 import android.os.Environment
-import com.movtery.zalithlauncher.game.launch.LogName
+import net.hykyura.zalithone.game.launch.LogName
 import org.apache.commons.io.FileUtils
 import java.io.File
 

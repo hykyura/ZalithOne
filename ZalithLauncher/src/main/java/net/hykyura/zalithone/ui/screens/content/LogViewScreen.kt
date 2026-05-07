@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.ui.screens.content
+package net.hykyura.zalithone.ui.screens.content
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -28,18 +28,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.NavBackStack
-import com.movtery.zalithlauncher.setting.enums.isLauncherInDarkTheme
-import com.movtery.zalithlauncher.ui.base.BaseScreen
-import com.movtery.zalithlauncher.ui.code_editor.EditorState
-import com.movtery.zalithlauncher.ui.code_editor.SoraEditor
-import com.movtery.zalithlauncher.ui.code_editor.lang.LogLanguage
-import com.movtery.zalithlauncher.ui.code_editor.scheme.SchemeIDEADark
-import com.movtery.zalithlauncher.ui.code_editor.scheme.SchemeIDEALight
-import com.movtery.zalithlauncher.ui.screens.NormalNavKey
-import com.movtery.zalithlauncher.ui.screens.TitledNavKey
-import com.movtery.zalithlauncher.ui.screens.navigateTo
-import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
-import com.movtery.zalithlauncher.viewmodel.ScreenBackStackViewModel
+import net.hykyura.zalithone.setting.enums.isLauncherInDarkTheme
+import net.hykyura.zalithone.ui.base.BaseScreen
+import net.hykyura.zalithone.ui.code_editor.EditorState
+import net.hykyura.zalithone.ui.code_editor.SoraEditor
+import net.hykyura.zalithone.ui.code_editor.lang.LogLanguage
+import net.hykyura.zalithone.ui.code_editor.scheme.SchemeIDEADark
+import net.hykyura.zalithone.ui.code_editor.scheme.SchemeIDEALight
+import net.hykyura.zalithone.ui.screens.NormalNavKey
+import net.hykyura.zalithone.ui.screens.TitledNavKey
+import net.hykyura.zalithone.ui.screens.navigateTo
+import net.hykyura.zalithone.utils.logging.Logger.lWarning
+import net.hykyura.zalithone.viewmodel.ScreenBackStackViewModel
 import io.github.rosemoe.sora.text.Content
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

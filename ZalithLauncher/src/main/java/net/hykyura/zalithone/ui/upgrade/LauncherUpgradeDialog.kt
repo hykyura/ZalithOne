@@ -41,30 +41,15 @@ import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/upgrade/LauncherUpgradeDialog.kt
-import com.mikepenz.markdown.coil3.Coil3ImageTransformerImpl
-import com.mikepenz.markdown.compose.LazyMarkdownSuccess
-import com.mikepenz.markdown.m3.Markdown
-import com.mikepenz.markdown.model.rememberMarkdownState
 import net.hykyura.zalithone.R
-import net.hykyura.zalithone.ui.components.defaultMDTypography
+import net.hykyura.zalithone.ui.components.MarkdownView
+import net.hykyura.zalithone.ui.components.defaultRichTextStyle
 import net.hykyura.zalithone.ui.theme.cardColor
 import net.hykyura.zalithone.ui.theme.onCardColor
 import net.hykyura.zalithone.upgrade.RemoteData
 import net.hykyura.zalithone.upgrade.findCurrentBody
 import net.hykyura.zalithone.upgrade.getCurrentCouldDrive
 import net.hykyura.zalithone.utils.formatDate
-=======
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.ui.components.MarkdownView
-import com.movtery.zalithlauncher.ui.components.defaultRichTextStyle
-import com.movtery.zalithlauncher.ui.theme.cardColor
-import com.movtery.zalithlauncher.ui.theme.onCardColor
-import com.movtery.zalithlauncher.upgrade.RemoteData
-import com.movtery.zalithlauncher.upgrade.findCurrentBody
-import com.movtery.zalithlauncher.upgrade.getCurrentCouldDrive
-import com.movtery.zalithlauncher.utils.formatDate
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/upgrade/LauncherUpgradeDialog.kt
 import java.util.Locale
 
 @Composable

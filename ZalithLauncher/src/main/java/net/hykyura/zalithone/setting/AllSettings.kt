@@ -24,13 +24,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import com.movtery.layer_controller.data.POSITION_RANGE
 import com.movtery.layer_controller.utils.snap.SnapMode
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/setting/AllSettings.kt
 import net.hykyura.zalithone.game.path.GamePathManager
 import net.hykyura.zalithone.game.version.installed.GraphicsApi
 import net.hykyura.zalithone.info.InfoDistributor
 import net.hykyura.zalithone.setting.enums.AppLanguage
 import net.hykyura.zalithone.setting.enums.DarkMode
 import net.hykyura.zalithone.setting.enums.GestureActionType
+import net.hykyura.zalithone.setting.enums.HomePageType
 import net.hykyura.zalithone.setting.enums.MirrorSourceType
 import net.hykyura.zalithone.setting.enums.MouseControlMode
 import net.hykyura.zalithone.ui.control.HotbarRule
@@ -40,24 +40,6 @@ import net.hykyura.zalithone.ui.control.mouse.CursorHotspot
 import net.hykyura.zalithone.ui.control.mouse.LEFT_TOP_HOTSPOT
 import net.hykyura.zalithone.ui.theme.ColorThemeType
 import net.hykyura.zalithone.utils.animation.TransitionAnimationType
-=======
-import com.movtery.zalithlauncher.game.path.GamePathManager
-import com.movtery.zalithlauncher.game.version.installed.GraphicsApi
-import com.movtery.zalithlauncher.info.InfoDistributor
-import com.movtery.zalithlauncher.setting.enums.AppLanguage
-import com.movtery.zalithlauncher.setting.enums.DarkMode
-import com.movtery.zalithlauncher.setting.enums.GestureActionType
-import com.movtery.zalithlauncher.setting.enums.HomePageType
-import com.movtery.zalithlauncher.setting.enums.MirrorSourceType
-import com.movtery.zalithlauncher.setting.enums.MouseControlMode
-import com.movtery.zalithlauncher.ui.control.HotbarRule
-import com.movtery.zalithlauncher.ui.control.gamepad.JoystickMode
-import com.movtery.zalithlauncher.ui.control.mouse.CENTER_HOTSPOT
-import com.movtery.zalithlauncher.ui.control.mouse.CursorHotspot
-import com.movtery.zalithlauncher.ui.control.mouse.LEFT_TOP_HOTSPOT
-import com.movtery.zalithlauncher.ui.theme.ColorThemeType
-import com.movtery.zalithlauncher.utils.animation.TransitionAnimationType
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/setting/AllSettings.kt
 
 object AllSettings : SettingsRegistry() {
     //Renderer

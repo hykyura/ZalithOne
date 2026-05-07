@@ -18,7 +18,7 @@
 
 package net.hykyura.zalithone.game.version.installed
 
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/game/version/installed/VersionsManager.kt
+import net.hykyura.zalithone.game.launch.LogName
 import net.hykyura.zalithone.game.path.getVersionsHome
 import net.hykyura.zalithone.game.version.installed.utils.parseJsonToVersionInfo
 import net.hykyura.zalithone.info.InfoDistributor
@@ -26,16 +26,6 @@ import net.hykyura.zalithone.utils.logging.Logger.lDebug
 import net.hykyura.zalithone.utils.logging.Logger.lError
 import net.hykyura.zalithone.utils.logging.Logger.lInfo
 import net.hykyura.zalithone.utils.logging.Logger.lWarning
-=======
-import com.movtery.zalithlauncher.game.launch.LogName
-import com.movtery.zalithlauncher.game.path.getVersionsHome
-import com.movtery.zalithlauncher.game.version.installed.utils.parseJsonToVersionInfo
-import com.movtery.zalithlauncher.info.InfoDistributor
-import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
-import com.movtery.zalithlauncher.utils.logging.Logger.lError
-import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
-import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/game/version/installed/VersionsManager.kt
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

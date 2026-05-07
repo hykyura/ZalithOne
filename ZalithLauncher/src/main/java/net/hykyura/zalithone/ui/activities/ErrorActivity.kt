@@ -30,10 +30,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.jakewharton.processphoenix.ProcessPhoenix
-<<<<<<< HEAD:ZalithLauncher/src/main/java/net/hykyura/zalithone/ui/activities/ErrorActivity.kt
 import net.hykyura.zalithone.R
 import net.hykyura.zalithone.context.COPY_LABEL_LINK
-import net.hykyura.zalithone.game.launch.LogName
 import net.hykyura.zalithone.path.PathManager
 import net.hykyura.zalithone.ui.base.BaseAppCompatActivity
 import net.hykyura.zalithone.ui.screens.main.ErrorScreen
@@ -48,24 +46,6 @@ import net.hykyura.zalithone.utils.getSerializableSafely
 import net.hykyura.zalithone.utils.network.openLink
 import net.hykyura.zalithone.utils.string.throwableToString
 import net.hykyura.zalithone.viewmodel.CrashLogsUploadViewModel
-=======
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.context.COPY_LABEL_LINK
-import com.movtery.zalithlauncher.path.PathManager
-import com.movtery.zalithlauncher.ui.base.BaseAppCompatActivity
-import com.movtery.zalithlauncher.ui.screens.main.ErrorScreen
-import com.movtery.zalithlauncher.ui.screens.main.crashlogs.ShareLinkOperation
-import com.movtery.zalithlauncher.ui.theme.ZalithLauncherTheme
-import com.movtery.zalithlauncher.ui.theme.backgroundColor
-import com.movtery.zalithlauncher.ui.theme.onBackgroundColor
-import com.movtery.zalithlauncher.utils.copyText
-import com.movtery.zalithlauncher.utils.file.shareFile
-import com.movtery.zalithlauncher.utils.getParcelableSafely
-import com.movtery.zalithlauncher.utils.getSerializableSafely
-import com.movtery.zalithlauncher.utils.network.openLink
-import com.movtery.zalithlauncher.utils.string.throwableToString
-import com.movtery.zalithlauncher.viewmodel.CrashLogsUploadViewModel
->>>>>>> origin/main:ZalithLauncher/src/main/java/com/movtery/zalithlauncher/ui/activities/ErrorActivity.kt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.parcelize.Parcelize
 import java.io.File

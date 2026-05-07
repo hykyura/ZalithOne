@@ -42,7 +42,7 @@ import com.halilibo.richtext.ui.RichTextStyle
 import com.halilibo.richtext.ui.TableStyle
 import com.halilibo.richtext.ui.material3.RichText
 import com.halilibo.richtext.ui.string.RichTextStringStyle
-import com.movtery.zalithlauncher.ui.theme.cardColor
+import net.hykyura.zalithone.ui.theme.cardColor
 
 @Composable
 fun MarkdownView(
